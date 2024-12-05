@@ -1,7 +1,6 @@
 # MAC Frontend Single Page Application (SPA)
 
-A web-based frontend for your headless AI agent, served publicly here: https://demo.mac-project.ai/
-Build your own AI Agent and use this frontend in your demos.
+A web-based frontend for your headless AI agent, served publicly here: https://demo.mac-project.ai/. Build your own AI Agent and use this frontend in your demos.
 
 ATTENTION: This is an alpha release - unfinished and unstable. `Chat` and `Settings` should be working properly, the rest is work in progress.
 Next steps: API spec to be defined and released
