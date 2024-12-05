@@ -1,0 +1,123 @@
+#%RAML 1.0
+title: AI Agent API
+baseUri: /api/v0
+mediaType:
+  - application/json
+version: v0
+protocols:
+  - HTTP
+
+types:
+  SimpleChatQuery:
+    properties:
+      prompt:
+        example: Example
+        type: string
+      llm_temperature:
+        example: 0.7
+        type: number
+        format: float
+      llm_provider:
+        example: Example
+        type: string
+      llm_model:
+        example: Example
+        type: string
+      chat_memory:
+        example: true
+        type: boolean
+      max_output_token:
+        example: 500
+        type: number
+        format: int
+  SimpleChatResponse:
+    properties:
+      promptResponse:
+        example: Example
+        type: string
+      inputTokens:
+        example: 100
+        type: number
+        format: int
+      outputTokens:
+        example: 100
+        type: number
+        format: int
+  LlmList:
+    type: array
+    items:
+      properties:
+        llm_provider:
+          example: Example
+          type: string
+        llm_model:
+          example: Example
+          type: string
+
+/chat:
+  post:
+    displayName: Generate Chat response
+    headers:
+      userId?:
+        example: Albert
+        type: string
+    body:
+      type: SimpleChatQuery
+    responses:
+      "200":
+        body:
+          type: SimpleChatResponse
+  delete:
+    displayName: Delete conversation history
+    headers:
+      userId?:
+        example: Albert
+        type: string
+/llm:
+  get:
+    displayName: List of available LLMs
+    responses:
+      "200":
+        body:
+          type: LlmList
+/tools:
+  get:
+    displayName: List available tools
+    responses:
+      "200":
+        body:
+          type: array
+          items:
+            properties:
+              name:
+                example: Example
+                type: string
+              description:
+                example: Example
+                type: string
+/tools/selection:
+  get:
+    displayName: List selected tools
+    responses:
+      "200":
+        body:
+          type: array
+          items:
+            type: string
+
+  post:
+    displayName: Define tools selection
+    body:
+      type: array
+      items:
+        type: string
+            
+    responses:
+      "200":
+        body:
+          type: array
+          items:
+            type: string
+
+
+
