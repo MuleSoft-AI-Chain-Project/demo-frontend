@@ -5,19 +5,27 @@
         <div class="q-pl-md q-pb-md q-pr-md row justify-center items-end col-9">
           <div style="width: 100%;" class="q-px-md">
             <q-scroll-area ref="scrollArea" :style="{height: chatHeight + 'px', overflow: 'hidden'}" :content-style="{ display: 'flex', 'flex-direction': 'column', 'justify-content': 'flex-end' }" :thumb-style="{'opacity': 0}">
-              <!-- <div class="flex flex-col" style="height: 100%;"> -->
-              <q-chat-message v-for="message in messageHistory" :key="message"
-                :name="message.name"
-                :avatar='message.name === store.getAgentName ? "https://cdn.quasar.dev/img/avatar1.jpg" : "https://cdn.quasar.dev/img/avatar2.jpg"'
-                :text="message.text"
-                :sent='message.name === store.getAgentName ? false : true'
-                :bg-color='message.name === store.getAgentName ? "primary" : "secondary"'
-                text-color="white"
-              >
-              <span v-if="message.text[0].length > 0">{{ message.text[0] }}</span>
-              <q-spinner-dots class="q-pl-sm" v-else size="2rem" />
-              </q-chat-message>
-            <!-- </div> -->
+              <div v-for="message in messageHistory" :key="message">
+                <q-chat-message
+                  v-if="message.text[0].length > 0"
+                  :name="message.name"
+                  :avatar='message.name === store.getAgentName ? "https://cdn.quasar.dev/img/avatar1.jpg" : "https://cdn.quasar.dev/img/avatar2.jpg"'
+                  :text="message.text"
+                  text-html
+                  :sent='message.name === store.getAgentName ? false : true'
+                  :bg-color='message.name === store.getAgentName ? "primary" : "secondary"'
+                  text-color="white"
+                />
+                <q-chat-message
+                  v-else
+                  :name="message.name"
+                  avatar="https://cdn.quasar.dev/img/avatar1.jpg"
+                  bg-color="primary"
+                  text-color="white"
+                >
+                <q-spinner-dots class="q-pl-sm" size="2rem" />
+                </q-chat-message>
+              </div>
             </q-scroll-area>
             <q-input color="secondary" filled dense v-model="inputText" class="q-pt-sm" @keydown.enter="sendClicked" >
               <template v-slot:after>
